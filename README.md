@@ -1,9 +1,9 @@
-# expresset
+# expressentials
 
 Essential Express.js helpers — status codes, errors, logging, validation, and more.
 
 ```ts
-import { status, NotFound, errorHandler, requestId } from "expresset";
+import { status, NotFound, errorHandler, requestId } from "expressentials";
 
 app.use(requestId());
 app.use(errorHandler());
@@ -16,7 +16,7 @@ app.get("/users/:id", (req, res) => {
 ## Install
 
 ```sh
-npm install expresset
+npm install expressentials
 ```
 
 Requires `express` as a peer dependency.
@@ -54,7 +54,7 @@ import {
   asyncHandler,
   errorHandler,
   NotFound,
-} from "expresset";
+} from "expressentials";
 import { z } from "zod";
 
 const app = express();

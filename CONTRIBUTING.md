@@ -1,12 +1,12 @@
 # Contributing
 
-Thanks for your interest in contributing to expresset.
+Thanks for your interest in contributing to expressentials.
 
 ## Development
 
 ```sh
-git clone https://github.com/callmegautam/expresset.git
-cd expresset
+git clone https://github.com/callmegautam/expressentials.git
+cd expressentials
 npm install
 ```
 

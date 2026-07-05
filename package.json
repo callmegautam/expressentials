@@ -1,5 +1,5 @@
 {
-  "name": "expresset",
+  "name": "expressentials",
   "version": "0.0.1",
   "description": "Essential Express.js helpers — status codes, errors, logging, validation, and more",
   "keywords": [
@@ -14,13 +14,13 @@
     "request-id",
     "health-check"
   ],
-  "homepage": "https://github.com/callmegautam/expresset#readme",
+  "homepage": "https://github.com/callmegautam/expressentials#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/callmegautam/expresset.git"
+    "url": "git+https://github.com/callmegautam/expressentials.git"
   },
   "bugs": {
-    "url": "https://github.com/callmegautam/expresset/issues"
+    "url": "https://github.com/callmegautam/expressentials/issues"
   },
   "license": "MIT",
   "author": "Gautam Suthar (https://github.com/callmegautam)",
