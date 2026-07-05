@@ -48,7 +48,7 @@ export class Logger {
     if (args.length === 1) {
       message = String(args[0]);
     } else if (typeof args[0] === "object" && args[0] !== null) {
-      meta = { ...args[0] as Record<string, unknown> };
+      meta = { ...(args[0] as Record<string, unknown>) };
       message = String(args[1]);
     } else {
       message = String(args[0]);

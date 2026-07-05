@@ -40,10 +40,7 @@ export interface ValidateOptions {
   formatError?: IssueFormatter;
 }
 
-export function validate(
-  schemas: ValidationSchemas,
-  options: ValidateOptions = {},
-) {
+export function validate(schemas: ValidationSchemas, options: ValidateOptions = {}) {
   const formatError = options.formatError ?? defaultFormatter;
 
   return (req: Request, _res: Response, next: NextFunction): void => {

@@ -8,9 +8,7 @@ describe("Logger", () => {
 
     log.info("hello");
 
-    expect(dest).toHaveBeenCalledWith(
-      expect.objectContaining({ level: "info", message: "hello" }),
-    );
+    expect(dest).toHaveBeenCalledWith(expect.objectContaining({ level: "info", message: "hello" }));
   });
 
   it("should log with meta object as first arg", () => {
@@ -71,9 +69,7 @@ describe("Logger", () => {
 
     log.info("json output");
 
-    expect(spy).toHaveBeenCalledWith(
-      JSON.stringify({ level: "info", message: "json output" }),
-    );
+    expect(spy).toHaveBeenCalledWith(JSON.stringify({ level: "info", message: "json output" }));
     spy.mockRestore();
   });
 });

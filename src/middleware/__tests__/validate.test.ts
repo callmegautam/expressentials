@@ -78,9 +78,7 @@ describe("validate", () => {
     handler(req, res, next);
 
     expect(next).toHaveBeenCalledWith(
-      new ValidationError("Validation failed", [
-        { path: [], message: "Something went wrong" },
-      ]),
+      new ValidationError("Validation failed", [{ path: [], message: "Something went wrong" }]),
     );
   });
 

@@ -7,7 +7,7 @@ export class ApiError extends Error {
     message?: string,
     public readonly details?: unknown,
   ) {
-    super(message ??= getDefaultMessage(statusCode));
+    super((message ??= getDefaultMessage(statusCode)));
     this.name = "ApiError";
   }
 

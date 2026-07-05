@@ -24,9 +24,7 @@ describe("requestId", () => {
     handler(req, res, next);
 
     expect(req.requestId).toBeDefined();
-    expect(req.requestId).toMatch(
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
-    );
+    expect(req.requestId).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
     expect(res.setHeader).toHaveBeenCalledWith("x-request-id", req.requestId);
     expect(next).toHaveBeenCalledOnce();
   });

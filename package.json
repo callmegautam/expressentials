@@ -1,7 +1,29 @@
 {
   "name": "expresset",
   "version": "0.0.1",
-  "description": "",
+  "description": "Essential Express.js helpers — status codes, errors, logging, validation, and more",
+  "keywords": [
+    "express",
+    "expressjs",
+    "middleware",
+    "http",
+    "status",
+    "errors",
+    "logger",
+    "validation",
+    "request-id",
+    "health-check"
+  ],
+  "homepage": "https://github.com/callmegautam/expresset#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/callmegautam/expresset.git"
+  },
+  "bugs": {
+    "url": "https://github.com/callmegautam/expresset/issues"
+  },
+  "license": "MIT",
+  "author": "Gautam Suthar (https://github.com/callmegautam)",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -13,12 +35,16 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
+    "format": "prettier --check \"src/**/*.ts\"",
+    "format:fix": "prettier --write \"src/**/*.ts\"",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
@@ -27,6 +53,7 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "express": "^5.0.0",
+    "prettier": "^3.9.4",
     "tsup": "^8.4.0",
     "typescript": "^5.7.0",
     "vitest": "^2.1.0"
