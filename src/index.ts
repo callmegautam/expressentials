@@ -11,4 +11,4 @@ export {
   ServiceUnavailable,
   TooManyRequests,
 } from "./errors/http-error.js";
-export { errorHandler } from "./middleware/error-handler.js";
+export { errorHandler, requestId } from "./middleware/index.js";
