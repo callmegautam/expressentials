@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import type { Request, Response } from "express";
 import { errorHandler } from "../error-handler";
 import { ApiError } from "../../errors/api-error";
+import { message } from "../../message";
 
 function mockRes() {
   const res: Partial<Response> = {};
@@ -50,7 +51,7 @@ describe("errorHandler", () => {
 
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({
-      error: { message: "Internal Server Error", statusCode: 500 },
+      error: { message: message.internalServerError, statusCode: 500 },
     });
   });
 

@@ -1,4 +1,5 @@
 import { status } from "../status/index.js";
+import { message } from "../message/index.js";
 
 export class ApiError extends Error {
   constructor(
@@ -44,15 +45,7 @@ export class ApiError extends Error {
 }
 
 function getDefaultMessage(code: number): string {
-  const map: Record<number, string> = {
-    [status.badRequest]: "Bad Request",
-    [status.unauthorized]: "Unauthorized",
-    [status.forbidden]: "Forbidden",
-    [status.notFound]: "Not Found",
-    [status.conflict]: "Conflict",
-    [status.tooManyRequests]: "Too Many Requests",
-    [status.internalServerError]: "Internal Server Error",
-    [status.serviceUnavailable]: "Service Unavailable",
-  };
-  return map[code] ?? "Error";
+  const entry = Object.entries(status).find(([, v]) => v === code);
+  if (!entry) return "Error";
+  return message[entry[0] as keyof typeof message];
 }

@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import { ApiError } from "../errors/api-error.js";
+import { message } from "../message/index.js";
 
 export interface ErrorHandlerOptions {
   log?: boolean;
@@ -26,7 +27,7 @@ export function errorHandler(options: ErrorHandlerOptions = {}) {
 
     res.status(500).json({
       error: {
-        message: "Internal Server Error",
+        message: message.internalServerError,
         statusCode: 500,
       },
     });

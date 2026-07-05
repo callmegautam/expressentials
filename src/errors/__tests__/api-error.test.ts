@@ -11,7 +11,7 @@ describe("ApiError", () => {
 
   it("should default message based on status code", () => {
     const err = new ApiError(404);
-    expect(err.message).toBe("Not Found");
+    expect(err.message).toBe("Resource not found");
   });
 
   it("should store optional details", () => {

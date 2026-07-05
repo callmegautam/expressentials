@@ -1,4 +1,5 @@
 export { status } from "./status/index.js";
+export { message } from "./message/index.js";
 export { ApiError } from "./errors/api-error.js";
 export {
   NotFound,
