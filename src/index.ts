@@ -10,7 +10,14 @@ export {
   InternalServerError,
   ServiceUnavailable,
   TooManyRequests,
+  ValidationError,
 } from "./errors/http-error.js";
 export { Logger, createLogger } from "./logger/index.js";
 export { getRequestContext, getLogger, getRequestId, runWithContext } from "./context/index.js";
-export { errorHandler, requestId, requestContext, httpLogger } from "./middleware/index.js";
+export {
+  errorHandler,
+  requestId,
+  requestContext,
+  httpLogger,
+  validate,
+} from "./middleware/index.js";

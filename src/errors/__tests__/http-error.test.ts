@@ -8,6 +8,7 @@ import {
   InternalServerError,
   ServiceUnavailable,
   TooManyRequests,
+  ValidationError,
 } from "../http-error";
 import { ApiError } from "../api-error";
 
@@ -54,5 +55,15 @@ describe("predefined error classes", () => {
   it("TooManyRequests extends ApiError with 429", () => {
     const err = new TooManyRequests();
     expect(err.statusCode).toBe(429);
+  });
+
+  it("ValidationError extends ApiError with 422 and stores details", () => {
+    const issues = [{ path: ["email"], message: "Invalid email" }];
+    const err = new ValidationError("Validation failed", issues);
+    expect(err).toBeInstanceOf(ApiError);
+    expect(err).toBeInstanceOf(ValidationError);
+    expect(err.statusCode).toBe(422);
+    expect(err.message).toBe("Validation failed");
+    expect(err.details).toEqual(issues);
   });
 });

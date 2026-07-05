@@ -47,3 +47,9 @@ export class TooManyRequests extends ApiError {
     super(429, message);
   }
 }
+
+export class ValidationError extends ApiError {
+  constructor(message?: string, details?: unknown) {
+    super(422, message ?? "Validation failed", details);
+  }
+}
