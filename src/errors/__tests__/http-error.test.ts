@@ -9,6 +9,7 @@ import {
   ServiceUnavailable,
   TooManyRequests,
   ValidationError,
+  GatewayTimeout,
 } from "../http-error";
 import { ApiError } from "../api-error";
 
@@ -55,6 +56,12 @@ describe("predefined error classes", () => {
   it("TooManyRequests extends ApiError with 429", () => {
     const err = new TooManyRequests();
     expect(err.statusCode).toBe(429);
+  });
+
+  it("GatewayTimeout extends ApiError with 504", () => {
+    const err = new GatewayTimeout();
+    expect(err.statusCode).toBe(504);
+    expect(err).toBeInstanceOf(GatewayTimeout);
   });
 
   it("ValidationError extends ApiError with 422 and stores details", () => {

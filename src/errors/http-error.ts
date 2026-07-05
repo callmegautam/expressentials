@@ -53,3 +53,9 @@ export class ValidationError extends ApiError {
     super(422, message ?? "Validation failed", details);
   }
 }
+
+export class GatewayTimeout extends ApiError {
+  constructor(message?: string) {
+    super(504, message);
+  }
+}
