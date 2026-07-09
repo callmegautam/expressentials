@@ -11,6 +11,20 @@ describe("Logger", () => {
     expect(dest).toHaveBeenCalledWith(expect.objectContaining({ level: "info", message: "hello" }));
   });
 
+  it("should log a single object argument as structured meta", () => {
+    const dest = vi.fn();
+    const log = new Logger({ destination: dest });
+
+    log.info({ method: "GET", path: "/users", status: 200 });
+
+    expect(dest).toHaveBeenCalledWith({
+      level: "info",
+      method: "GET",
+      path: "/users",
+      status: 200,
+    });
+  });
+
   it("should log with meta object as first arg", () => {
     const dest = vi.fn();
     const log = new Logger({ destination: dest });
