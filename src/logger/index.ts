@@ -45,7 +45,9 @@ export class Logger {
     let message: string | undefined;
     let meta: Record<string, unknown> = {};
 
-    if (args.length === 1) {
+    if (args.length === 1 && typeof args[0] === "object" && args[0] !== null) {
+      meta = { ...(args[0] as Record<string, unknown>) };
+    } else if (args.length === 1) {
       message = String(args[0]);
     } else if (typeof args[0] === "object" && args[0] !== null) {
       meta = { ...(args[0] as Record<string, unknown>) };
