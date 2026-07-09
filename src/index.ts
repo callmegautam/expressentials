@@ -15,6 +15,7 @@ export {
 } from "./errors/http-error.js";
 export { Logger, createLogger } from "./logger/index.js";
 export { getRequestContext, getLogger, getRequestId, runWithContext } from "./context/index.js";
+export { parseQuery } from "./query-parser/index.js";
 export {
   errorHandler,
   requestId,
