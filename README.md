@@ -182,6 +182,20 @@ log.error({ error: err }, "message");
 const child = log.child({ requestId: "abc" });
 ```
 
+### parseQuery — Query string parser for sort/filter/pagination
+
+```ts
+import { parseQuery } from "expressentials";
+
+// GET /users?sort=-created_at,name&filter[status]=active&page=2&limit=10
+const q = parseQuery(req.query);
+q.sort       // [{ field: "created_at", order: "desc" }, { field: "name", order: "asc" }]
+q.filter     // { status: "active" }
+q.pagination // { page: 2, limit: 10 }
+```
+
+Options: `defaultLimit` (default `20`), `maxLimit` (default `100`).
+
 ## Quick start
 
 ```ts
