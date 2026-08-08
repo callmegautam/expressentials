@@ -124,6 +124,7 @@ import { httpLogger } from "expressentials";
 app.use(httpLogger());
 // Logs: {"level":"info","requestId":"abc","method":"GET","path":"/api/users","status":200,"durationMs":42}
 // Option: app.use(httpLogger({ skip: (req) => req.url === "/health" }))
+// Option: app.use(httpLogger({ logger: customLogger }))
 ```
 
 ### validate — Request validation (Zod/Yup adapter)
