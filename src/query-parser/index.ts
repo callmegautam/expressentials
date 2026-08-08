@@ -44,7 +44,10 @@ function parsePagination(
 ): Pagination {
   const page = typeof pageRaw === "string" ? Math.max(1, parseInt(pageRaw, 10) || 1) : 1;
   const parsedLimit = parseInt(limitRaw as string, 10);
-  let limit = typeof limitRaw === "string" && !Number.isNaN(parsedLimit) ? Math.max(1, parsedLimit) : options.defaultLimit;
+  let limit =
+    typeof limitRaw === "string" && !Number.isNaN(parsedLimit)
+      ? Math.max(1, parsedLimit)
+      : options.defaultLimit;
   if (limit > options.maxLimit) limit = options.maxLimit;
   return { page, limit };
 }
@@ -60,9 +63,10 @@ export function parseQuery(
 
   return {
     sort: parseSort(query.sort),
-    filter: typeof query.filter === "object" && query.filter !== null
-      ? (query.filter as Record<string, unknown>)
-      : undefined,
+    filter:
+      typeof query.filter === "object" && query.filter !== null
+        ? (query.filter as Record<string, unknown>)
+        : undefined,
     pagination: parsePagination(query.page, query.limit, opts),
   };
 }
