@@ -68,3 +68,22 @@ describe("errorHandler", () => {
     spy.mockRestore();
   });
 });
+
+  it("should delegate to Express when headers have already been sent", () => {
+    const req = {} as Request;
+    const next = vi.fn();
+    const res = {
+      headersSent: true,
+      status: vi.fn(),
+      json: vi.fn(),
+    } as unknown as Response;
+
+    const handler = errorHandler();
+    const error = new Error("Something broke");
+
+    handler(error, req, res, next);
+
+    expect(next).toHaveBeenCalledWith(error);
+    expect(res.status).not.toHaveBeenCalled();
+    expect(res.json).not.toHaveBeenCalled();
+  });
