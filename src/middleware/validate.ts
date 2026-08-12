@@ -47,7 +47,15 @@ export function validate(schemas: ValidationSchemas, options: ValidateOptions = 
     try {
       if (schemas.body) req.body = schemas.body.parse(req.body);
       if (schemas.params) req.params = schemas.params.parse(req.params) as typeof req.params;
-      if (schemas.query) req.query = schemas.query.parse(req.query) as typeof req.query;
+      if (schemas.query) {
+        const parsedQuery = schemas.query.parse(req.query) as typeof req.query;
+        Object.defineProperty(req, "query", {
+          value: parsedQuery,
+          configurable: true,
+          enumerable: true,
+          writable: true,
+        });
+      }
       next();
     } catch (err) {
       next(new ValidationError("Validation failed", formatError(err)));
