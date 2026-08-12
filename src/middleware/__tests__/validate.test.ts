@@ -44,6 +44,27 @@ describe("validate", () => {
     expect(next).toHaveBeenCalledWith();
   });
 
+  it("should handle read-only query property in Express 5", () => {
+    const querySchema = {
+      parse: vi.fn(() => ({ page: "VALIDATED" })),
+    };
+    const handler = validate({ query: querySchema });
+    const req = {} as Request;
+
+    Object.defineProperty(req, "query", {
+      get: () => ({ page: "2" }),
+      configurable: true,
+    });
+
+    const res = mockRes();
+    const next = vi.fn();
+
+    handler(req, res, next);
+
+    expect(querySchema.parse).toHaveBeenCalledWith({ page: "2" });
+    expect(next).toHaveBeenCalledWith();
+  });
+
   it("should throw ValidationError on parse failure with Zod-style issues", () => {
     const schema = {
       parse: () => {
