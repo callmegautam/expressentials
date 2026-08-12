@@ -87,3 +87,15 @@ describe("Logger", () => {
     spy.mockRestore();
   });
 });
+
+  it("should not allow metadata to override reserved log fields", () => {
+    const dest = vi.fn();
+    const log = new Logger({ destination: dest });
+
+    log.info({ level: "error", message: "fake" }, "real message");
+
+    expect(dest).toHaveBeenCalledWith({
+      level: "info",
+      message: "real message",
+    });
+  });

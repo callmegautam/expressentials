@@ -60,9 +60,9 @@ export class Logger {
     }
 
     this.destination({
-      level,
       ...this.bindings,
       ...meta,
+      level,
       ...(message ? { message } : {}),
     });
   }
