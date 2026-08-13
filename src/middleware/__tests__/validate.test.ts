@@ -112,4 +112,32 @@ describe("validate", () => {
     expect(req.body).toEqual({ data: 1 });
     expect(next).toHaveBeenCalledWith();
   });
+
+  it("should validate and replace query with the parsed result", () => {
+    const schema = {
+      parse: vi.fn((data: unknown) => ({
+        ...(data as Record<string, unknown>),
+        page: Number((data as Record<string, unknown>).page),
+      })),
+    };
+
+    const handler = validate({ query: schema });
+
+    const req = {
+      get query() {
+        return { page: "2" };
+      },
+    } as unknown as Request;
+
+    const res = mockRes();
+    const next = vi.fn();
+
+    handler(req, res, next);
+
+    expect(schema.parse).toHaveBeenCalledWith({ page: "2" });
+    expect(req.query).toEqual({ page: 2 });
+    expect((req.query as any).page).toBe(2);
+    expect(next).toHaveBeenCalledWith();
+  });
+
 });
