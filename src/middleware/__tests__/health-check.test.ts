@@ -39,6 +39,31 @@ describe("healthCheck", () => {
     });
   });
 
+  it("should not allow custom checks to overwrite reserved health fields", () => {
+    const handler = healthCheck({
+      uptime: () => 42,
+      timestamp: () => "2026-01-01T00:00:00.000Z",
+      checks: () => ({
+        status: "down",
+        uptime: 999999,
+        timestamp: "fake",
+        db: "connected",
+      }),
+    });
+    const req = {} as Request;
+    const res = { json: vi.fn() } as unknown as Response;
+    const next = vi.fn();
+
+    handler(req, res, next);
+
+    expect(res.json).toHaveBeenCalledWith({
+      status: "ok",
+      uptime: 42,
+      timestamp: "2026-01-01T00:00:00.000Z",
+      db: "connected",
+    });
+  });
+
   it("should use custom uptime and timestamp functions", () => {
     const handler = healthCheck({
       uptime: () => 42,

@@ -12,10 +12,10 @@ export function healthCheck(options: HealthCheckOptions = {}) {
 
   return (_req: Request, res: Response, _next: NextFunction): void => {
     res.json({
+      ...(options.checks?.() ?? {}),
       status: "ok",
       uptime: getUptime(),
       timestamp: getTimestamp(),
-      ...(options.checks?.() ?? {}),
     });
   };
 }
