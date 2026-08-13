@@ -16,8 +16,12 @@ export function httpLogger(options: HttpLoggerOptions = {}) {
     }
 
     const start = Date.now();
+    let logged = false;
 
-    res.on("finish", () => {
+    const logRequest = () => {
+      if (logged) return;
+      logged = true;
+
       const log = req.log ?? logger;
 
       log.info({
@@ -26,7 +30,10 @@ export function httpLogger(options: HttpLoggerOptions = {}) {
         status: res.statusCode,
         durationMs: Date.now() - start,
       });
-    });
+    };
+
+    res.on("finish", logRequest);
+    res.on("close", logRequest);
 
     next();
   };
