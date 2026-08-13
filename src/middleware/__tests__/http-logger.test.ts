@@ -82,4 +82,21 @@ describe("httpLogger", () => {
       durationMs: expect.any(Number),
     });
   });
+
+  it("should log when response closes without finishing", () => {
+    const handler = httpLogger();
+    const req = mockReq();
+    const res = mockRes();
+    const next = vi.fn();
+
+    handler(req, res, next);
+    res.emit("close");
+
+    expect(req.log.info).toHaveBeenCalledWith({
+      method: "GET",
+      path: "/api/users",
+      status: 200,
+      durationMs: expect.any(Number),
+    });
+  });
 });
