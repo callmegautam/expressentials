@@ -4,6 +4,10 @@ export function asyncHandler(
   fn: (req: Request, res: Response, next: NextFunction) => Promise<void>,
 ) {
   return (req: Request, res: Response, next: NextFunction): void => {
-    Promise.resolve(fn(req, res, next)).catch(next);
+    try {
+      Promise.resolve(fn(req, res, next)).catch(next);
+    } catch (err) {
+      next(err);
+    }
   };
 }
