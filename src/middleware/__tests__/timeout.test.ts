@@ -63,4 +63,26 @@ describe("timeout", () => {
 
     expect(next).toHaveBeenLastCalledWith(new GatewayTimeout("Custom timeout"));
   });
+
+  it("should not call next with timeout after response headers are sent", () => {
+    vi.useFakeTimers();
+
+    const handler = timeout(100);
+    const req = mockReq();
+    const res = mockRes();
+    const next = vi.fn();
+
+    Object.defineProperty(res, "headersSent", {
+      value: true,
+      configurable: true,
+    });
+
+    handler(req, res, next);
+
+    expect(next).toHaveBeenCalledOnce();
+
+    vi.advanceTimersByTime(100);
+
+    expect(next).toHaveBeenCalledOnce();
+  });
 });
