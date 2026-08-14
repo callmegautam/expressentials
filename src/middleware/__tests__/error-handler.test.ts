@@ -67,8 +67,6 @@ describe("errorHandler", () => {
     expect(spy).toHaveBeenCalled();
     spy.mockRestore();
   });
-});
-
   it("should delegate to Express when headers have already been sent", () => {
     const req = {} as Request;
     const next = vi.fn();
@@ -87,3 +85,4 @@ describe("errorHandler", () => {
     expect(res.status).not.toHaveBeenCalled();
     expect(res.json).not.toHaveBeenCalled();
   });
+});
