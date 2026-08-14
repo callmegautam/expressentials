@@ -37,4 +37,19 @@ describe("asyncHandler", () => {
       expect(next).not.toHaveBeenCalled();
     });
   });
+  it("should call next when handler throws synchronously", () => {
+    const error = new Error("sync error");
+    const handler = asyncHandler(() => {
+      throw error;
+    });
+
+    const req = {} as Request;
+    const res = {} as Response;
+    const next = vi.fn();
+
+    handler(req, res, next);
+
+    expect(next).toHaveBeenCalledWith(error);
+  });
+
 });
