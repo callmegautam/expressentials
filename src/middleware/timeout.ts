@@ -7,14 +7,20 @@ export interface TimeoutOptions {
 
 export function timeout(ms: number, options: TimeoutOptions = {}) {
   return (req: Request, _res: Response, next: NextFunction): void => {
+    let completed = false;
+
+    const done = () => {
+      completed = true;
+      clearTimeout(timer);
+    };
+
     const timer = setTimeout(() => {
+      if (completed || _res.headersSent) return;
       next(new GatewayTimeout(options.message ?? "Request timed out"));
     }, ms);
 
-    const done = () => clearTimeout(timer);
-
-    _res.on("finish", done);
-    _res.on("close", done);
+    _res.once("finish", done);
+    _res.once("close", done);
 
     next();
   };
