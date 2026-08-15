@@ -123,6 +123,11 @@ describe("parseQuery", () => {
       expect(result.pagination).toEqual({ page: 1, limit: 20 });
     });
 
+    it("rejects partially numeric limit strings", () => {
+      const result = parseQuery({ limit: "10abc" });
+      expect(result.pagination).toEqual({ page: 1, limit: 20 });
+    });
+
     it("clamps limit to 1 minimum", () => {
       const result = parseQuery({ limit: "0" });
       expect(result.pagination).toEqual({ page: 1, limit: 1 });
