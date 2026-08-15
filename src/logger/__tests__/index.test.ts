@@ -86,6 +86,24 @@ describe("Logger", () => {
     expect(spy).toHaveBeenCalledWith(JSON.stringify({ level: "info", message: "json output" }));
     spy.mockRestore();
   });
+
+  it("should serialize BigInt metadata as strings by default", () => {
+    const spy = vi.spyOn(console, "log").mockImplementation(() => {});
+    const log = new Logger();
+
+    log.info({ userId: 123n, stats: { total: 456n } }, "User loaded");
+
+    expect(spy).toHaveBeenCalledWith(
+      JSON.stringify({
+        userId: "123",
+        stats: { total: "456" },
+        level: "info",
+        message: "User loaded",
+      }),
+    );
+    spy.mockRestore();
+  });
+
   it("should not allow metadata to override reserved log fields", () => {
     const dest = vi.fn();
     const log = new Logger({ destination: dest });
