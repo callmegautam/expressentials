@@ -26,6 +26,39 @@ describe("validate", () => {
     expect(next).toHaveBeenCalledWith();
   });
 
+  it("should not partially mutate request when a later schema fails", () => {
+    const originalBody = { name: "muzz" };
+    const originalParams = { id: "bad" };
+
+    const bodySchema = {
+      parse: (data: unknown) => ({
+        ...(data as Record<string, unknown>),
+        name: "MUZZ",
+      }),
+    };
+
+    const paramsSchema = {
+      parse: () => {
+        throw new Error("Invalid params");
+      },
+    };
+
+    const handler = validate({
+      body: bodySchema,
+      params: paramsSchema,
+    });
+
+    const req = mockReq(originalBody, originalParams);
+    const res = mockRes();
+    const next = vi.fn();
+
+    handler(req, res, next);
+
+    expect(next).toHaveBeenCalledWith(expect.any(ValidationError));
+    expect(req.body).toBe(originalBody);
+    expect(req.params).toBe(originalParams);
+  });
+
   it("should parse params and query", () => {
     const bodySchema = { parse: vi.fn((d: unknown) => d) };
     const paramsSchema = { parse: vi.fn((d: unknown) => d) };

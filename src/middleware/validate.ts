@@ -45,17 +45,25 @@ export function validate(schemas: ValidationSchemas, options: ValidateOptions = 
 
   return (req: Request, _res: Response, next: NextFunction): void => {
     try {
-      if (schemas.body) req.body = schemas.body.parse(req.body);
-      if (schemas.params) req.params = schemas.params.parse(req.params) as typeof req.params;
+      const body = schemas.body ? schemas.body.parse(req.body) : req.body;
+      const params = schemas.params
+        ? (schemas.params.parse(req.params) as typeof req.params)
+        : req.params;
+      const query = schemas.query
+        ? (schemas.query.parse(req.query) as typeof req.query)
+        : req.query;
+
+      if (schemas.body) req.body = body;
+      if (schemas.params) req.params = params;
       if (schemas.query) {
-        const parsedQuery = schemas.query.parse(req.query) as typeof req.query;
         Object.defineProperty(req, "query", {
-          value: parsedQuery,
+          value: query,
           configurable: true,
           enumerable: true,
           writable: true,
         });
       }
+
       next();
     } catch (err) {
       next(new ValidationError("Validation failed", formatError(err)));
