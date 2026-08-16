@@ -21,7 +21,9 @@ export interface LoggerOptions {
 }
 
 const defaultDestination: LogDestination = (entry) => {
-  console.log(JSON.stringify(entry));
+  console.log(
+    JSON.stringify(entry, (_key, value) => (typeof value === "bigint" ? value.toString() : value)),
+  );
 };
 
 export class Logger {
