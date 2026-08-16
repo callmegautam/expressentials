@@ -43,7 +43,11 @@ function parsePagination(
   options: Required<ParseQueryOptions>,
 ): Pagination {
   const page = typeof pageRaw === "string" ? Math.max(1, parseInt(pageRaw, 10) || 1) : 1;
-  const parsedLimit = parseInt(limitRaw as string, 10);
+  const parsedLimit =
+    typeof limitRaw === "string" && /^\d+$/.test(limitRaw.trim())
+      ? Number(limitRaw.trim())
+      : Number.NaN;
+
   let limit =
     typeof limitRaw === "string" && !Number.isNaN(parsedLimit)
       ? Math.max(1, parsedLimit)
