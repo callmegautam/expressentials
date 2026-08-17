@@ -238,8 +238,8 @@ app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
 });
 
-app.use("*", () => {
-  throw new NotFound("Route not found");
+app.use((_req, _res, next) => {
+  next(new NotFound("Route not found"));
 });
 
 app.use(errorHandler());
