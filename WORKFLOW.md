@@ -23,6 +23,13 @@ import {
 const app = express();
 const customLogger = new Logger();
 
+const createUserSchema = {
+  parse: (data: unknown) => {
+    if (typeof data !== "object" || data === null) throw new Error("Invalid body");
+    return data;
+  },
+};
+
 app.use(express.json());
 
 app.use(requestId());
@@ -45,8 +52,8 @@ app.post(
   }),
 );
 
-app.use("*", () => {
-  throw new NotFound("Route not found");
+app.use((_req, _res, next) => {
+  next(new NotFound("Route not found"));
 });
 
 app.use(errorHandler());

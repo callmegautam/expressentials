@@ -44,8 +44,11 @@ export class ApiError extends Error {
   }
 }
 
+const defaultMessageByCode: Record<number, string> = {};
+for (const [key, code] of Object.entries(status)) {
+  defaultMessageByCode[code] = message[key as keyof typeof message];
+}
+
 function getDefaultMessage(code: number): string {
-  const entry = Object.entries(status).find(([, v]) => v === code);
-  if (!entry) return "Error";
-  return message[entry[0] as keyof typeof message];
+  return defaultMessageByCode[code] ?? "Error";
 }

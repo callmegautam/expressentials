@@ -104,6 +104,20 @@ describe("Logger", () => {
     spy.mockRestore();
   });
 
+  it("should serialize Error metadata with name, message, and stack by default", () => {
+    const spy = vi.spyOn(console, "log").mockImplementation(() => {});
+    const log = new Logger();
+
+    log.info({ error: new Error("boom") }, "User loaded");
+
+    const output = JSON.parse(spy.mock.calls[0][0] as string);
+    expect(output).toEqual(expect.objectContaining({ level: "info", message: "User loaded" }));
+    expect(output.error).toEqual(
+      expect.objectContaining({ name: "Error", message: "boom", stack: expect.any(String) }),
+    );
+    spy.mockRestore();
+  });
+
   it("should not allow metadata to override reserved log fields", () => {
     const dest = vi.fn();
     const log = new Logger({ destination: dest });

@@ -118,6 +118,11 @@ describe("parseQuery", () => {
       expect(result.pagination).toEqual({ page: 1, limit: 20 });
     });
 
+    it("rejects partially numeric page strings", () => {
+      const result = parseQuery({ page: "2abc" });
+      expect(result.pagination).toEqual({ page: 1, limit: 20 });
+    });
+
     it("handles non-numeric limit string", () => {
       const result = parseQuery({ limit: "abc" });
       expect(result.pagination).toEqual({ page: 1, limit: 20 });

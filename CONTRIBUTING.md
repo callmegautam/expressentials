@@ -26,7 +26,7 @@ npm install
 - **Tests:** Add or update tests in co-located `__tests__` directories. Run with `npm test`.
 - **TypeScript:** Ensure `npm run typecheck` passes.
 - **Exports:** Add new public APIs to `src/index.ts`.
-- **Docs:** Update `FEATURES.md` with usage examples and options for new features.
+- **Docs:** Update `README.md` (and `WORKFLOW.md` when relevant) with usage examples and options for new features.
 
 ## Project structure
 

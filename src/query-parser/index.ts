@@ -42,7 +42,10 @@ function parsePagination(
   limitRaw: unknown,
   options: Required<ParseQueryOptions>,
 ): Pagination {
-  const page = typeof pageRaw === "string" ? Math.max(1, parseInt(pageRaw, 10) || 1) : 1;
+  const page =
+    typeof pageRaw === "string" && /^\d+$/.test(pageRaw.trim())
+      ? Math.max(1, Number(pageRaw.trim()))
+      : 1;
   const parsedLimit =
     typeof limitRaw === "string" && /^\d+$/.test(limitRaw.trim())
       ? Number(limitRaw.trim())
