@@ -9,4 +9,5 @@ export {
   ServiceUnavailable,
   TooManyRequests,
   ValidationError,
+  GatewayTimeout,
 } from "./http-error.js";

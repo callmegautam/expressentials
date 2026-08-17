@@ -21,9 +21,21 @@ export interface LoggerOptions {
 }
 
 const defaultDestination: LogDestination = (entry) => {
-  console.log(
-    JSON.stringify(entry, (_key, value) => (typeof value === "bigint" ? value.toString() : value)),
-  );
+  const line = JSON.stringify(entry, (_key, value) => {
+    if (typeof value === "bigint") return value.toString();
+    if (value instanceof Error) {
+      return {
+        name: value.name,
+        message: value.message,
+        ...(value.stack ? { stack: value.stack } : {}),
+      };
+    }
+    return value;
+  });
+
+  if (entry.level === "error") console.error(line);
+  else if (entry.level === "warn") console.warn(line);
+  else console.log(line);
 };
 
 export class Logger {
