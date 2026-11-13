@@ -262,6 +262,8 @@ app.listen(3000);
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup, guidelines, and project structure.
 
+Want to talk through an issue before you open a PR? Come by [The Basement](https://discord.gg/DTPcwVNN79), my Discord server.
+
 ## Code of Conduct
 
 This project follows the [Contributor Covenant](CODE_OF_CONDUCT.md). By participating, you agree to uphold its terms.
